@@ -28,11 +28,6 @@ class RemoteService : Service() {
         }
     }
 
-    private val runnable = {
-        Log.d(TAG, "running runnable")
-
-    }
-
     override fun onBind(p0: Intent?): IBinder? {
         handler.sendEmptyMessageDelayed(0, 5000)
         return binder
@@ -42,10 +37,9 @@ class RemoteService : Service() {
         override fun handleMessage(msg: Message) {
             listeners.forEach { listener ->
                 listener.onItemAdded("new item");
-                listener.onItemAdded("old item");
+                listener.onItemRemoved("old item");
             }
             sendEmptyMessageDelayed(0, 5000)
         }
     }
-
 }
